@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Home page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/style.css">
+
+
+    <!-- Remote stylesheets -->
+    <link media="all" href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link media="all" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
+    <link media="all" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link media="all" href="../css/main.css" rel="stylesheet">
+
+    <!-- Remote JavaScripts -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="../js/apod.js"></script>
+    <script type="text/javascript" src="../js/spacex.js"></script>
+    <script type="text/javascript" src="../js/iss.js"></script>
+    <script type="text/javascript" src="../js/script.js"></script>
+
+
+
+</head>
+
+<body onload="triggerBtnClick()">
+
+
+<div class="row container-fluid p-5 text-white;">
+    <h2> Space travels</h2>
+    <!-- Top -->
+    <div id="headline" class="row col">
+        <div class="col">
+            <div>
+                <button type="button" class="btn-sm btn-secondary text-nowrap" id='start'
+                        onclick="$('#info').toggle()">Info</button>
+                <button type="button" class="btn-sm btn-secondary text-nowrap"
+                        onclick="$('#spacex-launches').toggle()">SpaceX Launches</button>
+                <button type="button" class="btn-sm btn-secondary text-nowrap"
+                        onclick="$('#apod').toggle()">Apod</button>
+                <button type="button" class="btn-sm btn-secondary text-nowrap"
+                        onclick="$('#iss-data').toggle()">ISS</button>
+
+
+            </div>
+
+        </div>
+        <div class="col-9">
+            <div id="top-notes"></div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col m-4">
+
+            <!-- Apod -->
+            <div id="apod" class="container" style="display:none;">
+                <div class="row mt-1">
+
+                    <div id="apod-card" class="col card rounded">
+                        <div class="panel-heading mt-3">
+                            <button type="button" class="btn-close float-end"
+                                    onclick="$('#apod').toggle()"></button>
+                            <h3 class="panel-title">Astronomy Picture of the Day</h3>
+
+                        </div>
+                        <div id="apod-card-body" class="card-body">
+                            <div class="cpanel-body">
+                                <div id="spinner-apod" class="spinner-border" role="status">
+                                    <span class="sr-only"></span>
+                                </div>
+                                <div class="row">
+                                    <div id="apod-card-media" class="col"></div>
+                                    <div class="col">
+                                        <div id="btn-panel">
+                                            <div class="row">
+                                                <div class="col btn-group" style="text-align: right;">
+                                                    <button id="btn-prev" class="btn-sm btn-primary"
+                                                            onclick="apodRenderer.prev()">Prev</button>
+                                                    <span id="status"
+                                                          class="col btn btn-dark waitingForConnection"></span>
+                                                    <button id="btn-next" class="btn-sm btn-primary"
+                                                            onclick="apodRenderer.next()">Next</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="apod-card-date"></div>
+                                        <h5 id="apod-card-title"></h5>
+                                        <p id="apod-card-text"></p>
+                                        <button id="apod-card-anchor" class="btn-sm btn-primary"
+                                                style="float:right;">
+                                            View
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- spacex -->
+            <div id="spacex-launches" class="container" style="display:none;">
+                <div class="row mt-1">
+
+                    <div id="card" class="col card rounded">
+                        <div class="panel-heading mt-3">
+                            <button type="button" class="btn-close float-end"
+                                    onclick="$('#spacex-launches').toggle()"></button>
+
+                            <h3 class="panel-title">SpaceX Launches</h3>
+                        </div>
+
+                        <table id="table-spacex" class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Rocket</th>
+                                <th scope="col">Launch Site</th>
+                                <th scope="col">Video</th>
+                                <th scope="col">Image</th>
+                                <th scope="col">Wikipedia</th>
+                                <th scope="col">Article</th>
+                            </tr>
+                            </thead>
+                            <tbody id="spacex"></tbody>
+                        </table>
+
+                        <div id="spinner-spacex" class="spinner-border" role="status">
+                            <span class="sr-only"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-5" id="info" style="display:none;">
+                <p class="m-0 p-0">velkommen til space stavels</p>
+                <p class="m-0 p-0">på denne side kan du booke rejser til all planeterne i vores solsystem, med en kæmpe udvalg af
+                    både kendte og ukende rumskibe, på denne side vil du kunne finde en masse brugbar og spæende information
+                    vi har blendet andet et sammerbajed med nasa for at kunne se plasering af ISS og se bileder af rummet.<br>
+                    Vi har også et sammerbejde med SpaceX for at kunne se alle deres opseldelser.<br>
+                </p>
+            </div>
+
+
+        </div>
+        <!-- iss -->
+        <div class="col-3" id="iss-data" style="display:none;">
+            <div id="iss" class="m-0 p-0">
+                <div class="row">
+                    <img id="iss-image" class="mx-auto" src="../media/iss/iss.png">
+                </div>
+                <h5>International Space Station (ISS)</h5>
+
+                <div class="row m-0 p-0">
+
+                    <table class="table w-100" style="color:white;">
+                        <tr>
+                            <th>Latitude</th>
+                            <td id="iss-latitude"></td>
+                        </tr>
+                        <tr>
+                            <th>Longitude</th>
+                            <td id="iss-longitude"></td>
+                        </tr>
+                        <tr>
+                            <th>Altitude</th>
+                            <td id="iss-altitude"></td>
+                        </tr>
+                        <tr>
+                            <th>Velocity</th>
+                            <td id="iss-velocity"></td>
+                        </tr>
+                        <tr>
+                            <th>Visibility</th>
+                            <td id="iss-visibility"></td>
+                        </tr>
+                        <tr>
+                            <th>Footprint</th>
+                            <td id="iss-footprint"></td>
+                        </tr>
+                        <tr>
+                            <th>Day num.</th>
+                            <td id="iss-daynum"></td>
+                        </tr>
+                        <tr>
+                            <th>Solar Lon</th>
+                            <td id="iss-solar-lon"></td>
+                        </tr>
+                        <tr>
+                            <th>Solar Lat</th>
+                            <td id="iss-solar-lat"></td>
+                        </tr>
+                        <tr>
+                            <th>Units</th>
+                            <td id="iss-units"></td>
+                        </tr>
+                    </table>
+
+                    <button type="button" class="btn-sm btn-primary mt-1"
+                            onclick="issRenderer.fetchData()">Update</button>
+                </div>
+            </div>
+        </div>
+        </div>
+
+
+
+
+
+
+</div>
+
+</body>
+</html>
